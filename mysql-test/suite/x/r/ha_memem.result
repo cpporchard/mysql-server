@@ -1,0 +1,22 @@
+Simple test to verify MEMEM storage engine
+create database testdb;
+use testdb;
+drop table if exists testtbl;
+Warnings:
+Note	1051	Unknown table 'testdb.testtbl'
+drop table if exists testtbl2;
+Warnings:
+Note	1051	Unknown table 'testdb.testtbl2'
+create table testtbl(a int, b int) engine = MEMEM;
+insert into testtbl values (2, 1029);
+insert into testtbl values (92, 8);
+select * from testtbl where a>2;
+a	b
+92	8
+create table testtbl2(a int) engine = MEMEM;
+insert into testtbl2 values (322);
+insert into testtbl2 values (8);
+select * from testtbl2 where a > 20;
+a
+322
+drop database testdb;
