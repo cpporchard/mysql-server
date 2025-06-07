@@ -247,6 +247,7 @@ class Item_func : public Item_result_field {
     ROUND_FUNC,
     TRUNCATE_FUNC,
     SQRT_FUNC,
+    SQRT_LOG_FUNC,
     ABS_FUNC,
     POW_FUNC,
     SIGN_FUNC,
@@ -1294,11 +1295,19 @@ class Item_func_log10 final : public Item_dec_func {
 };
 
 class Item_func_sqrt final : public Item_dec_func {
- public:
+public:
   Item_func_sqrt(const POS &pos, Item *a) : Item_dec_func(pos, a) {}
   double val_real() override;
   const char *func_name() const override { return "sqrt"; }
   enum Functype functype() const override { return SQRT_FUNC; }
+};
+
+class Item_func_sqrt_log final : public Item_dec_func {
+public:
+  Item_func_sqrt_log(const POS &pos, Item *a) : Item_dec_func(pos, a) {}
+  double val_real() override;
+  const char *func_name() const override { return "sqrt_log"; }
+  enum Functype functype() const override { return SQRT_LOG_FUNC; }
 };
 
 class Item_func_pow final : public Item_dec_func {

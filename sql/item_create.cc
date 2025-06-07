@@ -1553,6 +1553,7 @@ static const std::pair<const char *, Create_func *> func_array[] = {
     {"WAIT_UNTIL_SQL_THREAD_AFTER_GTIDS",
      SQL_FN_V(Item_master_gtid_set_wait, 1, 3)},
     {"SQRT", SQL_FN(Item_func_sqrt, 1)},
+ {"SQRT_LOG", SQL_FN(Item_func_sqrt_log, 1)},
     {"STRCMP", SQL_FN(Item_func_strcmp, 2)},
     {"STR_TO_DATE", SQL_FN(Item_func_str_to_date, 2)},
     {"ST_AREA", SQL_FN(Item_func_st_area, 1)},
