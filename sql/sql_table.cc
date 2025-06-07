@@ -10039,6 +10039,11 @@ bool mysql_create_table(THD *thd, Table_ref *create_table,
   Foreign_key_parents_invalidator fk_invalidator;
   DBUG_TRACE;
 
+  if (thd->variables.my_flag) {
+    my_error(ER_ILLEGAL_HA, MYF(0),"Fail on CREATE TABLE");
+    return true;
+  }
+
   handlerton *actual_hton = get_viable_handlerton_for_create(
       thd, create_table->table_name, *create_info);
   if (actual_hton == nullptr) return true;

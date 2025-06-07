@@ -3462,6 +3462,14 @@ static const char *optimizer_switch_names[] = {
     "derived_condition_pushdown",
     "default",
     NullS};
+
+
+static Sys_var_bool Sys_my_flag(
+  "my_flag",
+  "Custom flag to control CREATE TABLE behaviour",
+  HINT_UPDATEABLE SESSION_VAR(my_flag), CMD_LINE(OPT_ARG),
+  DEFAULT(false));
+
 static Sys_var_flagset Sys_optimizer_switch(
     "optimizer_switch",
     "optimizer_switch=option=val[,option=val...], where option is one of "

@@ -201,6 +201,7 @@ enum class Explain_format_type : ulong {
 */
 
 struct System_variables {
+  bool my_flag;
   /*
     How dynamically allocated system variables are handled:
 
