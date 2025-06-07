@@ -304,6 +304,7 @@ class Item_func : public Item_result_field {
     JSON_UNQUOTE_FUNC,
     MEMBER_OF_FUNC,
     STRCMP_FUNC,
+    STRCMP_FUNC2,
     TRUE_FUNC,
     FALSE_FUNC
   };

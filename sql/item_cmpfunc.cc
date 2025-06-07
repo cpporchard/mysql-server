@@ -2687,6 +2687,27 @@ longlong Item_func_strcmp::val_int() {
   return value == 0 ? 0 : value < 0 ? -1 : 1;
 }
 
+longlong Item_func_strcmp2::val_int() {
+  assert(fixed);
+  const CHARSET_INFO *cs = cmp.cmp_collation.collation;
+  String *a = eval_string_arg(cs, args[0], &cmp.value1);
+  if (a == nullptr) {
+    if (current_thd->is_error()) return error_int();
+    null_value = true;
+    return 0;
+  }
+
+  String *b = eval_string_arg(cs, args[1], &cmp.value2);
+  if (b == nullptr) {
+    if (current_thd->is_error()) return error_int();
+    null_value = true;
+    return 0;
+  }
+  int value = sortcmp(a, b, cs);
+  null_value = false;
+  return value == 0 ? 0 : value < 0 ? -1 : 1;
+}
+
 bool Item_func_opt_neg::eq(const Item *item, bool binary_cmp) const {
   /* Assume we don't have rtti */
   if (this == item) return true;

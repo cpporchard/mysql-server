@@ -1378,6 +1378,27 @@ class Item_func_strcmp final : public Item_bool_func2 {
   }
 };
 
+class Item_func_strcmp2 final : public Item_bool_func2 {
+public:
+  Item_func_strcmp2(const POS &pos, Item *a, Item *b): Item_bool_func2(pos, a, b) {}
+  longlong val_int() override;
+  optimize_type select_optimize(const THD *) override { return OPTIMIZE_NONE; }
+  const char *func_name() const override { return "strcmp2"; }
+  enum Functype functype() const override { return STRCMP_FUNC2; }
+
+  void print(const THD *thd, String *str,enum_query_type query_type) const override {
+    Item_func::print(thd, str, query_type);
+  }
+  // We derive (indirectly) from Item_bool_func, but this is not a true boolean.
+  // Override length and unsigned_flag set by set_data_type_bool().
+  bool resolve_type(THD *thd) override {
+    if (Item_bool_func2::resolve_type(thd)) return true;
+    fix_char_length(2);  // returns "1" or "0" or "-1"
+    unsigned_flag = false;
+    return false;
+  }
+};
+
 struct interval_range {
   Item_result type;
   double dbl;
