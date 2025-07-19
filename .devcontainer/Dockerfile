@@ -1,12 +1,9 @@
 FROM public.ecr.aws/amazonlinux/amazonlinux:2023
 
-# ── refresh metadata ───────────────────────────────
 RUN dnf -y update
-
-# ── full compiler toolchain group ──────────────────
 RUN dnf -y groupinstall "Development Tools"
 
-# ── core build dependencies (one line each) ────────
+# Install packages using one line each for clear logs
 RUN dnf -y install make
 RUN dnf -y install cmake
 RUN dnf -y install git
@@ -19,14 +16,14 @@ RUN dnf -y install libudev-devel
 RUN dnf -y install bison
 RUN dnf -y install libtirpc-devel
 RUN dnf -y install rpcgen
+RUN dnf -y install gdb
 
-# ── convenience CLI tools (also split) ─────────────
+# Optional CLI tools
 RUN dnf -y install vim
 RUN dnf -y install curl
 RUN dnf -y install procps
 RUN dnf -y install lsof
 
-# ── clean RPM cache ────────────────────────────────
 RUN dnf clean all
 
 WORKDIR /workspace
