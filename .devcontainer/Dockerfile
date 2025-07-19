@@ -1,14 +1,11 @@
-# .devcontainer/Dockerfile
-FROM registry.fedoraproject.org/fedora:37      # ← no auth needed
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023
 
-RUN dnf -y update && \
-    dnf -y groupinstall "Development Tools" && \
-    dnf -y install \
-        make cmake git gcc gcc-c++ \
+RUN yum -y update && \
+    yum -y groupinstall "Development Tools" && \
+    yum -y install \
+        make cmake-3.22.2 git gcc gcc-c++ \
         openssl-devel ncurses-devel libcurl-devel libudev-devel \
-        bison libtirpc-devel rpcgen && \
-    dnf -y remove cmake gdb && \
-    dnf -y install cmake-3.22.2 gdb-13.2 && \
-    dnf clean all
+        bison libtirpc-devel rpcgen gdb && \
+    yum clean all
 
 WORKDIR /workspace
