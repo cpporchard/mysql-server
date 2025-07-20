@@ -24,22 +24,3 @@ RUN dnf -y install procps
 RUN dnf -y install lsof
 
 RUN dnf clean all
-
-RUN mkdir -p build && cd build && \
-    cmake \
-      -DCMAKE_C_COMPILER=/usr/bin/gcc \
-      -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
-      -DCMAKE_BUILD_TYPE=Debug \
-      -DCMAKE_CXX_STANDARD=17 \
-      -DCMAKE_CXX_FLAGS="-Wno-error=unused-variable" \
-      -DDOWNLOAD_BOOST=1 \
-      -DWITH_BOOST=/home/ec2-user/boost_1_77_0 \
-      -DWITH_BUILD_ID=OFF \
-      -DWITH_CLIENT_PROTOCOL_TRACING=OFF \
-      -DWITH_FEDERATED_STORAGE_ENGINE=OFF \
-      -DWITH_INNODB_MEMCACHED=ON \
-      -DWITH_NDBCLUSTER_STORAGE_ENGINE=OFF \
-      -DWITH_ROUTER=OFF \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      .. && \
-    make -j$(nproc)
